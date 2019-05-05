@@ -2,12 +2,8 @@ package wrx.xing.aop;
 import java.util.Arrays;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 
 /**
  * 切面类
@@ -44,8 +40,20 @@ public class LogAspects {
 	}
 
 	@AfterThrowing(value="pointCut()",throwing="exception")
-	public void logException(JoinPoint joinPoint,Exception exception){
+	public void logException(JoinPoint joinPoint,Throwable exception){
 		System.out.println(""+joinPoint.getSignature().getName()+"异常。。。异常信息：{"+exception+"}");
+	}
+
+	@Around("pointCut()")
+	public Object around(ProceedingJoinPoint jp){
+		try {
+			System.out.println("around start...");
+			jp.proceed();
+			return "2";
+		} catch (Throwable throwable) {
+//			throwable.printStackTrace();
+			throw new RuntimeException("ddk");
+		}
 	}
 
 }

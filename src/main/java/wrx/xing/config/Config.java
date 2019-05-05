@@ -3,6 +3,7 @@ package wrx.xing.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import wrx.xing.domain.Person;
 
 /**
@@ -11,6 +12,7 @@ import wrx.xing.domain.Person;
  * @author wangruxing
  * @date 2018-09-02 14:42
  */
+@EnableTransactionManagement
 @Configuration
 @ComponentScan("wrx.xing.domain")
 public class Config {
